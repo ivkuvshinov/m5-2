@@ -6,24 +6,26 @@
 <title>Тренажёр МЦКО — Математика 5 класс</title>
 <style>
   :root {
-    --bg: #f4f6fb;
+    --bg: #f0f4fb;
     --card: #ffffff;
     --primary: #2563eb;
     --primary-dark: #1d4ed8;
+    --primary-light: #eff6ff;
     --success: #16a34a;
+    --success-light: #f0fdf4;
     --error: #dc2626;
+    --error-light: #fef2f2;
     --warning: #d97706;
+    --warning-light: #fff7ed;
     --text: #1e293b;
     --muted: #64748b;
     --border: #e2e8f0;
-    --radius: 12px;
-    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --radius: 14px;
+    --shadow: 0 2px 16px rgba(37,99,235,0.07);
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
@@ -31,366 +33,265 @@
   }
 
   /* HEADER */
-  .header {
-    text-align: center;
-    margin-bottom: 24px;
-  }
-  .header h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    letter-spacing: -0.02em;
-  }
-  .header p {
-    font-size: 0.875rem;
-    color: var(--muted);
-    margin-top: 4px;
-  }
+  .header { text-align: center; margin-bottom: 20px; }
+  .header h1 { font-size: 1.35rem; font-weight: 800; color: var(--primary); letter-spacing: -0.02em; }
+  .header p { font-size: 0.82rem; color: var(--muted); margin-top: 3px; }
 
   /* TIMER */
-  .timer-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
+  .timer-bar { display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 16px; }
   .timer {
-    font-size: 1.75rem;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    letter-spacing: 0.02em;
-    color: var(--text);
-    min-width: 90px;
-    text-align: center;
-    transition: color 0.3s;
+    font-size: 2rem; font-weight: 800; font-variant-numeric: tabular-nums;
+    color: var(--text); letter-spacing: 0.03em; transition: color 0.3s;
   }
-  .timer.warning { color: var(--warning); }
-  .timer.danger { color: var(--error); }
-
-  .timer-label {
-    font-size: 0.75rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
+  .timer.warn { color: var(--warning); }
+  .timer.danger { color: var(--error); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
+  .timer-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
 
   /* PROGRESS */
-  .progress-wrap {
-    margin-bottom: 20px;
-  }
-  .progress-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-bottom: 6px;
-  }
-  .progress-bar-bg {
-    height: 6px;
-    background: var(--border);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-  .progress-bar-fill {
-    height: 100%;
-    background: var(--primary);
-    border-radius: 99px;
-    transition: width 0.4s ease;
-  }
+  .progress-wrap { margin-bottom: 14px; }
+  .progress-row { display:flex; justify-content:space-between; font-size:0.78rem; color:var(--muted); margin-bottom:5px; }
+  .progress-bg { height:5px; background:var(--border); border-radius:99px; overflow:hidden; }
+  .progress-fill { height:100%; background:var(--primary); border-radius:99px; transition:width 0.4s ease; }
 
   /* DOTS */
-  .dots {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
+  .dots { display:flex; gap:5px; flex-wrap:wrap; justify-content:center; margin-bottom:16px; }
   .dot {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 2px solid var(--border);
-    background: #fff;
-    font-size: 0.7rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.2s;
+    width:30px; height:30px; border-radius:50%;
+    border:2px solid var(--border); background:#fff;
+    font-size:0.72rem; font-weight:700; display:flex; align-items:center; justify-content:center;
+    color:var(--muted); cursor:pointer; transition:all 0.18s;
   }
-  .dot.active { border-color: var(--primary); color: var(--primary); background: #eff6ff; }
-  .dot.answered { border-color: var(--muted); background: var(--muted); color: #fff; }
-  .dot.correct { border-color: var(--success); background: var(--success); color: #fff; }
-  .dot.wrong { border-color: var(--error); background: var(--error); color: #fff; }
+  .dot.active { border-color:var(--primary); color:var(--primary); background:var(--primary-light); }
+  .dot.answered { border-color:#94a3b8; background:#94a3b8; color:#fff; }
+  .dot.correct { border-color:var(--success); background:var(--success); color:#fff; }
+  .dot.wrong { border-color:var(--error); background:var(--error); color:#fff; }
 
   /* CARD */
   .card {
-    background: var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 24px;
-    margin-bottom: 16px;
+    background:var(--card); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:22px; margin-bottom:14px;
   }
 
-  .task-meta {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 14px;
-    flex-wrap: wrap;
-  }
+  /* BADGES */
+  .task-meta { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:14px; }
   .badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 2px 10px;
-    border-radius: 99px;
-    font-size: 0.72rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
+    display:inline-flex; align-items:center; padding:3px 11px;
+    border-radius:99px; font-size:0.7rem; font-weight:700;
+    text-transform:uppercase; letter-spacing:0.05em;
   }
-  .badge-slot { background: #eff6ff; color: var(--primary); }
-  .badge-topic { background: #f1f5f9; color: var(--muted); }
-  .badge-diff-Б { background: #f0fdf4; color: var(--success); }
-  .badge-diff-П { background: #fff7ed; color: var(--warning); }
+  .badge-num { background:var(--primary-light); color:var(--primary); }
+  .badge-topic { background:#f1f5f9; color:var(--muted); }
+  .badge-b { background:var(--success-light); color:var(--success); }
+  .badge-p { background:var(--warning-light); color:var(--warning); }
+  .badge-kes { background:#f8fafc; color:#94a3b8; border:1px solid var(--border); }
 
+  /* QUESTION */
   .question-text {
-    font-size: 1.05rem;
-    font-weight: 600;
-    line-height: 1.55;
-    margin-bottom: 20px;
-    white-space: pre-wrap;
+    font-size:1rem; font-weight:600; line-height:1.6;
+    margin-bottom:18px; white-space:pre-wrap;
   }
 
-  .answer-group {
-    display: flex;
-    gap: 10px;
-    align-items: stretch;
-    flex-wrap: wrap;
+  /* INLINE TABLE */
+  .q-table {
+    width:100%; border-collapse:collapse; margin:10px 0 16px; font-size:0.88rem;
+    border:1px solid var(--border); border-radius:8px; overflow:hidden;
   }
+  .q-table th {
+    background:#f1f5f9; padding:8px 12px; text-align:left;
+    font-weight:700; font-size:0.8rem; color:var(--muted);
+    border-bottom:1px solid var(--border);
+  }
+  .q-table td { padding:8px 12px; border-bottom:1px solid var(--border); }
+  .q-table tr:last-child td { border-bottom:none; }
+  .q-table tr:nth-child(even) td { background:#fafbfc; }
+
+  /* INPUT AREA */
+  .answer-group { display:flex; gap:10px; align-items:stretch; flex-wrap:wrap; }
   .answer-input {
-    flex: 1;
-    min-width: 160px;
-    border: 2px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 1.05rem;
-    outline: none;
-    transition: border-color 0.2s;
-    background: #fff;
-    color: var(--text);
+    flex:1; min-width:150px;
+    border:2px solid var(--border); border-radius:9px;
+    padding:10px 14px; font-size:1rem;
+    outline:none; background:#fff; color:var(--text);
+    transition:border-color 0.2s;
   }
-  .answer-input:focus { border-color: var(--primary); }
-  .answer-input.correct { border-color: var(--success); background: #f0fdf4; }
-  .answer-input.wrong { border-color: var(--error); background: #fef2f2; }
+  .answer-input:focus { border-color:var(--primary); }
+  .answer-input.correct { border-color:var(--success); background:var(--success-light); }
+  .answer-input.wrong { border-color:var(--error); background:var(--error-light); }
+  .answer-input:disabled { opacity:0.8; cursor:not-allowed; }
 
+  /* BUTTONS */
   .btn {
-    padding: 10px 22px;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    transition: all 0.18s;
-    white-space: nowrap;
+    padding:10px 20px; border-radius:9px; font-size:0.92rem;
+    font-weight:700; cursor:pointer; border:none;
+    transition:all 0.16s; white-space:nowrap;
   }
-  .btn-primary {
-    background: var(--primary);
-    color: #fff;
-  }
-  .btn-primary:hover { background: var(--primary-dark); }
-  .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
-  .btn-secondary {
-    background: var(--border);
-    color: var(--text);
-  }
-  .btn-secondary:hover { background: #cbd5e1; }
-  .btn-danger {
-    background: var(--error);
-    color: #fff;
-  }
-  .btn-danger:hover { background: #b91c1c; }
+  .btn-primary { background:var(--primary); color:#fff; }
+  .btn-primary:hover { background:var(--primary-dark); }
+  .btn-primary:disabled { opacity:0.4; cursor:not-allowed; }
+  .btn-secondary { background:#e2e8f0; color:var(--text); }
+  .btn-secondary:hover { background:#cbd5e1; }
+  .btn-secondary:disabled { opacity:0.4; cursor:not-allowed; }
+  .btn-danger { background:var(--error); color:#fff; }
+  .btn-danger:hover { background:#b91c1c; }
 
   /* FEEDBACK */
-  .feedback {
-    margin-top: 14px;
-    padding: 12px 16px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    display: none;
-  }
-  .feedback.show { display: block; }
-  .feedback.correct { background: #f0fdf4; border-left: 4px solid var(--success); color: var(--success); }
-  .feedback.wrong { background: #fef2f2; border-left: 4px solid var(--error); color: #991b1b; }
-  .feedback strong { display: block; margin-bottom: 4px; }
-  .feedback .solution { color: var(--text); margin-top: 6px; font-size: 0.85rem; }
-  .feedback .reco { color: var(--muted); margin-top: 6px; font-size: 0.82rem; font-style: italic; }
+  .feedback { margin-top:14px; padding:13px 16px; border-radius:9px; font-size:0.88rem; line-height:1.55; display:none; }
+  .feedback.show { display:block; }
+  .feedback.correct { background:var(--success-light); border-left:4px solid var(--success); }
+  .feedback.wrong { background:var(--error-light); border-left:4px solid var(--error); }
+  .feedback-title { font-weight:700; margin-bottom:5px; }
+  .feedback.correct .feedback-title { color:var(--success); }
+  .feedback.wrong .feedback-title { color:var(--error); }
+  .feedback-solution { color:var(--text); margin-top:6px; }
+  .feedback-rec { color:var(--muted); font-size:0.82rem; margin-top:6px; font-style:italic; }
 
   /* NAV */
-  .nav-row {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
+  .nav-row { display:flex; gap:10px; flex-wrap:wrap; }
 
-  /* FINISH SCREEN */
-  .screen { display: none; }
-  .screen.active { display: block; }
-
-  .result-card {
-    background: var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 32px 24px;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  .result-score {
-    font-size: 4rem;
-    font-weight: 800;
-    color: var(--primary);
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-  .result-out-of {
-    font-size: 1rem;
-    color: var(--muted);
-    margin-bottom: 20px;
-  }
-  .result-label {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 24px;
-  }
-  .result-label.excellent { color: var(--success); }
-  .result-label.good { color: var(--primary); }
-  .result-label.average { color: var(--warning); }
-  .result-label.poor { color: var(--error); }
-
-  .result-breakdown {
-    display: grid;
-    gap: 10px;
-    text-align: left;
-  }
-  .breakdown-item {
-    background: var(--card);
-    border-radius: 10px;
-    box-shadow: var(--shadow);
-    padding: 14px 16px;
-    border-left: 4px solid var(--border);
-  }
-  .breakdown-item.correct { border-left-color: var(--success); }
-  .breakdown-item.wrong { border-left-color: var(--error); }
-  .breakdown-item .bi-question { font-size: 0.9rem; font-weight: 600; margin-bottom: 6px; }
-  .breakdown-item .bi-meta { font-size: 0.75rem; color: var(--muted); margin-bottom: 6px; }
-  .breakdown-item .bi-answer { font-size: 0.82rem; margin-bottom: 4px; }
-  .breakdown-item .bi-solution { font-size: 0.8rem; color: var(--muted); margin-top: 4px; line-height: 1.4; }
-  .bi-icon { font-size: 1.1rem; margin-right: 6px; }
-
-  .restart-btn-wrap { text-align: center; margin-top: 20px; }
+  /* SCREENS */
+  .screen { display:none; }
+  .screen.active { display:block; }
 
   /* START SCREEN */
+  .start-wrap { max-width:480px; margin:0 auto; }
   .start-card {
-    background: var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 40px 24px;
-    text-align: center;
-    max-width: 480px;
-    margin: 0 auto;
+    background:var(--card); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:36px 28px; text-align:center;
   }
-  .start-card h2 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: var(--text);
+  .start-logo { font-size:2.5rem; margin-bottom:12px; }
+  .start-card h2 { font-size:1.4rem; font-weight:800; color:var(--text); margin-bottom:8px; }
+  .start-card .subtitle { font-size:0.88rem; color:var(--primary); font-weight:600; margin-bottom:20px; }
+  .info-grid {
+    display:grid; grid-template-columns:1fr 1fr; gap:10px;
+    margin-bottom:26px; text-align:left;
   }
-  .start-card p {
-    font-size: 0.9rem;
-    color: var(--muted);
-    margin-bottom: 8px;
-    line-height: 1.5;
+  .info-item {
+    background:var(--bg); border-radius:10px; padding:12px 14px;
   }
-  .start-card ul {
-    text-align: left;
-    padding-left: 20px;
-    margin-bottom: 28px;
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 2;
+  .info-item .info-val { font-size:1.1rem; font-weight:800; color:var(--primary); }
+  .info-item .info-key { font-size:0.75rem; color:var(--muted); margin-top:2px; }
+  .start-note { font-size:0.8rem; color:var(--muted); margin-bottom:22px; line-height:1.5; }
+  .kes-list { text-align:left; margin-bottom:24px; }
+  .kes-item {
+    display:flex; align-items:flex-start; gap:10px;
+    padding:8px 0; border-bottom:1px solid var(--border);
+    font-size:0.83rem; color:var(--text);
   }
-  .start-card ul li { color: var(--muted); }
-  .start-card ul li span { color: var(--text); font-weight: 600; }
+  .kes-item:last-child { border-bottom:none; }
+  .kes-num {
+    min-width:24px; height:24px; border-radius:50%;
+    background:var(--primary-light); color:var(--primary);
+    font-size:0.72rem; font-weight:800; display:flex;
+    align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .kes-item .kes-topic { color:var(--muted); font-size:0.78rem; margin-top:2px; }
+
+  /* RESULT SCREEN */
+  .result-top {
+    background:var(--card); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:32px 24px;
+    text-align:center; margin-bottom:16px;
+  }
+  .result-score { font-size:4.5rem; font-weight:900; color:var(--primary); line-height:1; }
+  .result-outof { font-size:0.9rem; color:var(--muted); margin-bottom:10px; }
+  .result-label { font-size:1.2rem; font-weight:700; margin-bottom:8px; }
+  .result-time { font-size:0.8rem; color:var(--muted); }
+  .grade-excellent { color:var(--success); }
+  .grade-good { color:var(--primary); }
+  .grade-average { color:var(--warning); }
+  .grade-poor { color:var(--error); }
+
+  /* SCORE BAR */
+  .score-bar-wrap { margin: 16px 0 20px; }
+  .score-bar-bg { height:10px; background:var(--border); border-radius:99px; overflow:hidden; }
+  .score-bar-fill { height:100%; border-radius:99px; transition:width 1s ease; }
+
+  .breakdown { display:grid; gap:10px; }
+  .breakdown-item {
+    background:var(--card); border-radius:10px;
+    box-shadow:0 1px 6px rgba(0,0,0,0.06); padding:14px 16px;
+    border-left:4px solid var(--border);
+  }
+  .breakdown-item.correct { border-left-color:var(--success); }
+  .breakdown-item.wrong { border-left-color:var(--error); }
+  .bi-head { font-size:0.88rem; font-weight:700; margin-bottom:5px; display:flex; gap:8px; align-items:center; }
+  .bi-icon { font-size:1rem; }
+  .bi-q { font-size:0.8rem; color:var(--muted); margin-bottom:5px; line-height:1.4; }
+  .bi-answers { font-size:0.82rem; margin-bottom:4px; }
+  .bi-solution { font-size:0.8rem; color:var(--muted); margin-top:4px; line-height:1.4; }
+
+  .restart-wrap { text-align:center; margin-top:20px; padding-bottom:30px; }
 
   /* ANIMATIONS */
-  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
-  .card, .result-card, .breakdown-item { animation: fadeIn 0.25s ease; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+  .card, .start-card, .result-top, .breakdown-item { animation:fadeUp 0.22s ease; }
 
-  @media (max-width: 480px) {
-    .header h1 { font-size: 1.2rem; }
-    .timer { font-size: 1.4rem; }
-    .card { padding: 18px; }
-    .answer-group { flex-direction: column; }
-    .answer-input { min-width: 100%; }
+  /* MOBILE */
+  @media (max-width:480px) {
+    .header h1 { font-size:1.1rem; }
+    .timer { font-size:1.5rem; }
+    .card { padding:16px; }
+    .answer-group { flex-direction:column; }
+    .info-grid { grid-template-columns:1fr 1fr; }
+    .question-text { font-size:0.95rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- START SCREEN -->
+<!-- ==================== START ==================== -->
 <div id="screen-start" class="screen active">
-  <div class="start-card">
+  <div class="start-wrap">
     <div class="header">
       <h1>Тренажёр МЦКО</h1>
-      <p>Математика · 5 класс</p>
+      <p>Математика · 5 класс · 2025–2026</p>
     </div>
-    <ul>
-      <li><span>10 заданий</span> — по одному на каждую тему</li>
-      <li>Ответ вводится <span>коротко</span> — числом или дробью</li>
-      <li>Таймер <span>45 минут</span> — как на настоящем МЦКО</li>
-      <li>После финиша — <span>разбор ошибок</span></li>
-    </ul>
-    <button class="btn btn-primary" onclick="startTest()" style="width:100%;padding:14px;font-size:1rem;">
-      Начать тест
-    </button>
+    <div class="start-card">
+      <div class="start-logo">📐</div>
+      <h2>Диагностическая работа</h2>
+      <div class="subtitle">по образцу реального МЦКО</div>
+      <div class="info-grid">
+        <div class="info-item"><div class="info-val">10</div><div class="info-key">заданий в варианте</div></div>
+        <div class="info-item"><div class="info-val">45</div><div class="info-key">минут на работу</div></div>
+        <div class="info-item"><div class="info-val">10</div><div class="info-key">баллов максимум</div></div>
+        <div class="info-item"><div class="info-val">∞</div><div class="info-key">вариантов — случайные</div></div>
+      </div>
+      <div class="kes-list" id="kes-list"></div>
+      <div class="start-note">Ответ вводи числом или дробью (через запятую или /). После ответа — разбор с решением.</div>
+      <button class="btn btn-primary" onclick="startTest()" style="width:100%;padding:14px;font-size:1.05rem;">
+        Начать тест
+      </button>
+    </div>
   </div>
 </div>
 
-<!-- TEST SCREEN -->
+<!-- ==================== TEST ==================== -->
 <div id="screen-test" class="screen">
   <div class="header">
     <h1>Тренажёр МЦКО · Математика 5 класс</h1>
   </div>
-
   <div class="timer-bar">
     <div>
-      <div class="timer-label">Осталось времени</div>
+      <div class="timer-label">Осталось</div>
       <div class="timer" id="timer-display">45:00</div>
     </div>
   </div>
-
   <div class="progress-wrap">
     <div class="progress-row">
-      <span id="progress-text">Задание 1 из 10</span>
-      <span id="score-text">0 баллов</span>
+      <span id="progress-text">Вопрос 1 из 10</span>
+      <span id="score-text">0 / 10</span>
     </div>
-    <div class="progress-bar-bg">
-      <div class="progress-bar-fill" id="progress-fill" style="width:10%"></div>
-    </div>
+    <div class="progress-bg"><div class="progress-fill" id="progress-fill" style="width:10%"></div></div>
   </div>
-
-  <div class="dots" id="dots-container"></div>
+  <div class="dots" id="dots"></div>
 
   <div class="card" id="task-card">
     <div class="task-meta" id="task-meta"></div>
-    <div class="question-text" id="question-text"></div>
+    <div id="question-content"></div>
     <div class="answer-group">
       <input class="answer-input" id="answer-input" type="text"
-        placeholder="Введи ответ..." autocomplete="off" autocorrect="off"
+        placeholder="Введи ответ…" autocomplete="off" autocorrect="off" autocapitalize="off"
         onkeydown="if(event.key==='Enter') checkAnswer()">
       <button class="btn btn-primary" id="check-btn" onclick="checkAnswer()">Проверить</button>
     </div>
@@ -398,317 +299,252 @@
   </div>
 
   <div class="nav-row">
-    <button class="btn btn-secondary" id="prev-btn" onclick="goTask(-1)">← Назад</button>
-    <button class="btn btn-secondary" id="next-btn" onclick="goTask(1)">Далее →</button>
+    <button class="btn btn-secondary" id="btn-prev" onclick="navTo(-1)">← Назад</button>
+    <button class="btn btn-secondary" id="btn-next" onclick="navTo(1)">Далее →</button>
     <button class="btn btn-danger" onclick="confirmFinish()" style="margin-left:auto;">Завершить</button>
   </div>
 </div>
 
-<!-- RESULT SCREEN -->
+<!-- ==================== RESULT ==================== -->
 <div id="screen-result" class="screen">
-  <div class="header">
-    <h1>Тренажёр МЦКО · Математика 5 класс</h1>
+  <div class="header"><h1>Тренажёр МЦКО · Математика 5 класс</h1></div>
+  <div class="result-top">
+    <div class="result-score" id="res-score"></div>
+    <div class="result-outof">из 10 баллов</div>
+    <div class="score-bar-wrap">
+      <div class="score-bar-bg"><div class="score-bar-fill" id="score-bar" style="width:0%"></div></div>
+    </div>
+    <div class="result-label" id="res-label"></div>
+    <div class="result-time" id="res-time"></div>
   </div>
-  <div class="result-card">
-    <div class="result-score" id="result-score">—</div>
-    <div class="result-out-of">из 10 баллов</div>
-    <div class="result-label" id="result-label"></div>
-    <div style="font-size:0.85rem;color:var(--muted)" id="result-time"></div>
-  </div>
-  <div class="result-breakdown" id="result-breakdown"></div>
-  <div class="restart-btn-wrap">
-    <button class="btn btn-primary" onclick="restartTest()" style="padding:12px 40px;font-size:1rem;margin-top:8px;">
+  <div class="breakdown" id="breakdown"></div>
+  <div class="restart-wrap">
+    <button class="btn btn-primary" onclick="restartTest()" style="padding:13px 44px;font-size:1rem;">
       Новый вариант
     </button>
   </div>
 </div>
 
 <script>
-// ==================== DATA ====================
-const ALL_TASKS = [{"id":"D01","slot":1,"topic":"Десятичные дроби","difficulty":"Б","points":1,"answer_type":"short","question":"Вычислите: 12,7 + 3,86. Ответ запишите десятичной дробью.","answer":"16,56","accepted_answers":["16,56","16.56"],"solution":"Запишем числа в столбик, выравнивая запятые: 12,70 + 3,86 = 16,56.","recommendation_key":"decimal_fractions"},{"id":"D02","slot":1,"topic":"Десятичные дроби","difficulty":"Б","points":1,"answer_type":"short","question":"Вычислите: 45,2 − 18,75. Ответ запишите десятичной дробью.","answer":"26,45","accepted_answers":["26,45","26.45"],"solution":"Представим 45,2 как 45,20. Тогда 45,20 − 18,75 = 26,45.","recommendation_key":"decimal_fractions"},{"id":"D03","slot":1,"topic":"Десятичные дроби","difficulty":"Б","points":1,"answer_type":"short","question":"Вычислите: 7,05 · 6. Ответ запишите десятичной дробью.","answer":"42,3","accepted_answers":["42,3","42.3","42,30","42.30"],"solution":"705 · 6 = 4230. В числе 7,05 две цифры после запятой, поэтому получаем 42,30 = 42,3.","recommendation_key":"decimal_fractions"},{"id":"D04","slot":1,"topic":"Десятичные дроби","difficulty":"Б","points":1,"answer_type":"short","question":"Вычислите: 18,9 : 3. Ответ запишите десятичной дробью.","answer":"6,3","accepted_answers":["6,3","6.3","6,30","6.30"],"solution":"18,9 : 3 = 6,3, потому что 6,3 · 3 = 18,9.","recommendation_key":"decimal_fractions"},{"id":"D05","slot":1,"topic":"Десятичные дроби","difficulty":"Б","points":1,"answer_type":"short","question":"Вычислите: (6,4 + 2,35) · 2. Ответ запишите десятичной дробью.","answer":"17,5","accepted_answers":["17,5","17.5","17,50","17.50"],"solution":"Сначала складываем: 6,4 + 2,35 = 8,75. Затем 8,75 · 2 = 17,5.","recommendation_key":"decimal_fractions"},{"id":"N01","slot":2,"topic":"Вычисления с натуральными числами","difficulty":"Б","points":1,"answer_type":"short","question":"Найдите значение выражения: 3600 : 18 + 5 · (64 − 46) : 3.","answer":"230","accepted_answers":["230"],"solution":"3600 : 18 = 200. В скобках: 64 − 46 = 18. Далее 5 · 18 : 3 = 90 : 3 = 30. Итого 200 + 30 = 230.","recommendation_key":"natural_calculations"},{"id":"N02","slot":2,"topic":"Вычисления с натуральными числами","difficulty":"Б","points":1,"answer_type":"short","question":"Найдите значение выражения: 125 · 16 − 840 : 7.","answer":"1880","accepted_answers":["1880"],"solution":"125 · 16 = 2000. 840 : 7 = 120. Тогда 2000 − 120 = 1880.","recommendation_key":"natural_calculations"},{"id":"N03","slot":2,"topic":"Вычисления с натуральными числами","difficulty":"Б","points":1,"answer_type":"short","question":"Найдите значение выражения: (9080 − 3560) : 40 + 27 · 15.","answer":"543","accepted_answers":["543"],"solution":"9080 − 3560 = 5520. 5520 : 40 = 138. 27 · 15 = 405. Тогда 138 + 405 = 543.","recommendation_key":"natural_calculations"},{"id":"N04","slot":2,"topic":"Вычисления с натуральными числами","difficulty":"Б","points":1,"answer_type":"short","question":"Найдите значение выражения: 7020 : 27 + 19 · 24.","answer":"716","accepted_answers":["716"],"solution":"7020 : 27 = 260. 19 · 24 = 456. Тогда 260 + 456 = 716.","recommendation_key":"natural_calculations"},{"id":"N05","slot":2,"topic":"Вычисления с натуральными числами","difficulty":"Б","points":1,"answer_type":"short","question":"Найдите значение выражения: 10000 − (625 · 8 + 1440 : 12).","answer":"4880","accepted_answers":["4880"],"solution":"625 · 8 = 5000. 1440 : 12 = 120. В скобках 5000 + 120 = 5120. Тогда 10000 − 5120 = 4880.","recommendation_key":"natural_calculations"},{"id":"F01","slot":3,"topic":"Обыкновенные дроби","difficulty":"Б","points":1,"answer_type":"short","question":"Вычислите и сократите дробь: 5/9 + 2/9.","answer":"7/9","accepted_answers":["7/9"],"solution":"У дробей одинаковые знаменатели, складываем числители: 5 + 2 = 7. Получаем 7/9, дробь не сокращается.","recommendation_key":"common_fractions"},{"id":"F02","slot":3,"topic":"Обыкновенные дроби","difficulty":"Б","points":1,"answer_type":"short","question":"Вычислите и сократите дробь: 7/10 − 3/10.","answer":"2/5","accepted_answers":["2/5","0,4","0.4"],"solution":"У дробей одинаковые знаменатели: 7/10 − 3/10 = 4/10. Сокращаем на 2 и получаем 2/5.","recommendation_key":"common_fractions"},{"id":"F03","slot":3,"topic":"Обыкновенные дроби","difficulty":"Б","points":1,"answer_type":"short","question":"Какая дробь больше: 5/6 или 7/9? В ответ запишите большую дробь.","answer":"5/6","accepted_answers":["5/6"],"solution":"Приведём к знаменателю 18: 5/6 = 15/18, 7/9 = 14/18. Так как 15/18 больше 14/18, ответ 5/6.","recommendation_key":"common_fractions"},{"id":"F04","slot":3,"topic":"Обыкновенные дроби","difficulty":"Б","points":1,"answer_type":"short","question":"Вычислите и сократите дробь: 4/15 + 7/15.","answer":"11/15","accepted_answers":["11/15"],"solution":"Знаменатели одинаковые, поэтому 4/15 + 7/15 = 11/15. Дробь 11/15 не сокращается.","recommendation_key":"common_fractions"},{"id":"F05","slot":3,"topic":"Обыкновенные дроби","difficulty":"Б","points":1,"answer_type":"short","question":"Вычислите и сократите дробь: 9/14 − 3/14.","answer":"3/7","accepted_answers":["3/7"],"solution":"9/14 − 3/14 = 6/14. Сокращаем на 2 и получаем 3/7.","recommendation_key":"common_fractions"},{"id":"P01","slot":4,"topic":"Часть от целого и целое по части","difficulty":"Б","points":1,"answer_type":"short","question":"Найдите 3/5 от числа 80.","answer":"48","accepted_answers":["48"],"solution":"Чтобы найти 3/5 от 80, делим 80 на 5 и умножаем на 3: 80 : 5 · 3 = 16 · 3 = 48.","recommendation_key":"part_whole"},{"id":"P02","slot":4,"topic":"Часть от целого и целое по части","difficulty":"Б","points":1,"answer_type":"short","question":"2/7 некоторого числа равны 18. Найдите это число.","answer":"63","accepted_answers":["63"],"solution":"Если 2/7 числа равны 18, то 1/7 равна 18 : 2 = 9. Всё число равно 9 · 7 = 63.","recommendation_key":"part_whole"},{"id":"P03","slot":4,"topic":"Часть от целого и целое по части","difficulty":"Б","points":1,"answer_type":"short","question":"В классе 28 учеников. На экскурсию пошли 3/4 всех учеников. Сколько учеников пошли на экскурсию?","answer":"21","accepted_answers":["21"],"solution":"Находим 3/4 от 28: 28 : 4 · 3 = 7 · 3 = 21.","recommendation_key":"part_whole"},{"id":"P04","slot":4,"topic":"Часть от целого и целое по части","difficulty":"Б","points":1,"answer_type":"short","question":"Турист прошёл 5/8 маршрута, что составляет 25 км. Чему равна длина всего маршрута?","answer":"40","accepted_answers":["40"],"solution":"Если 5/8 маршрута — это 25 км, то 1/8 равна 25 : 5 = 5 км. Весь маршрут: 5 · 8 = 40 км.","recommendation_key":"part_whole"},{"id":"P05","slot":4,"topic":"Часть от целого и целое по части","difficulty":"Б","points":1,"answer_type":"short","question":"В коробке 45 конфет. 2/3 всех конфет шоколадные, остальные карамельные. На сколько шоколадных конфет больше, чем карамельных?","answer":"15","accepted_answers":["15"],"solution":"Шоколадных конфет 45 : 3 · 2 = 30. Карамельных 45 − 30 = 15. Разница: 30 − 15 = 15.","recommendation_key":"part_whole"},{"id":"M01","slot":5,"topic":"Задачи на движение","difficulty":"Б","points":1,"answer_type":"short","question":"Велосипедист ехал со скоростью 12 км/ч в течение 3 часов. Какое расстояние он проехал?","answer":"36","accepted_answers":["36"],"solution":"Расстояние равно скорости, умноженной на время: 12 · 3 = 36 км.","recommendation_key":"movement"},{"id":"M02","slot":5,"topic":"Задачи на движение","difficulty":"Б","points":1,"answer_type":"short","question":"Автомобиль проехал 90 км за 2,5 часа. Найдите его скорость в км/ч.","answer":"36","accepted_answers":["36","36,0","36.0"],"solution":"Скорость равна расстоянию, делённому на время: 90 : 2,5 = 36 км/ч.","recommendation_key":"movement"},{"id":"M03","slot":5,"topic":"Задачи на движение","difficulty":"Б","points":1,"answer_type":"short","question":"Из двух городов одновременно навстречу друг другу выехали автобус со скоростью 60 км/ч и автомобиль со скоростью 45 км/ч. Какое расстояние было между ними, если они встретились через 3 часа?","answer":"315","accepted_answers":["315"],"solution":"Скорость сближения: 60 + 45 = 105 км/ч. За 3 часа они вместе проехали 105 · 3 = 315 км.","recommendation_key":"movement"},{"id":"M04","slot":5,"topic":"Задачи на движение","difficulty":"Б","points":1,"answer_type":"short","question":"Два автомобиля выехали одновременно из одного пункта в одном направлении. Скорость первого 72 км/ч, второго 54 км/ч. Какое расстояние будет между ними через 2 часа?","answer":"36","accepted_answers":["36"],"solution":"Разность скоростей: 72 − 54 = 18 км/ч. За 2 часа расстояние между автомобилями станет 18 · 2 = 36 км.","recommendation_key":"movement"},{"id":"M05","slot":5,"topic":"Задачи на движение","difficulty":"Б","points":1,"answer_type":"short","question":"Поезд проходит 240 км за 4 часа. Сколько километров он пройдёт за 2,5 часа с той же скоростью?","answer":"150","accepted_answers":["150","150,0","150.0"],"solution":"Сначала найдём скорость: 240 : 4 = 60 км/ч. За 2,5 часа поезд пройдёт 60 · 2,5 = 150 км.","recommendation_key":"movement"},{"id":"W01","slot":6,"topic":"Текстовые задачи, таблицы и прикидка","difficulty":"Б","points":1,"answer_type":"short","question":"Яблоки стоят 95 рублей за килограмм. Сколько рублей стоят 2,4 кг яблок?","answer":"228","accepted_answers":["228","228,0","228.0"],"solution":"Стоимость равна цене за 1 кг, умноженной на массу: 95 · 2,4 = 228 рублей.","recommendation_key":"word_problems"},{"id":"W02","slot":6,"topic":"Текстовые задачи, таблицы и прикидка","difficulty":"Б","points":1,"answer_type":"short","question":"Купили 3 тетради по 28 рублей и 2 ручки по 36 рублей. Сколько рублей заплатили за всю покупку?","answer":"156","accepted_answers":["156"],"solution":"Тетради стоят 3 · 28 = 84 рубля. Ручки стоят 2 · 36 = 72 рубля. Всего 84 + 72 = 156 рублей.","recommendation_key":"word_problems"},{"id":"W03","slot":6,"topic":"Текстовые задачи, таблицы и прикидка","difficulty":"Б","points":1,"answer_type":"short","question":"Округлите число 37,48 до десятых.","answer":"37,5","accepted_answers":["37,5","37.5"],"solution":"До десятых смотрим на цифру сотых. В числе 37,48 цифра сотых равна 8, поэтому 37,4 округляется до 37,5.","recommendation_key":"estimation_rounding"},{"id":"W04","slot":6,"topic":"Текстовые задачи, таблицы и прикидка","difficulty":"Б","points":1,"answer_type":"short","question":"Купили 6 коробок по 18 карандашей. Из них раздали 75 карандашей. Сколько карандашей осталось?","answer":"33","accepted_answers":["33"],"solution":"Всего купили 6 · 18 = 108 карандашей. Осталось 108 − 75 = 33 карандаша.","recommendation_key":"word_problems"},{"id":"W05","slot":6,"topic":"Текстовые задачи, таблицы и прикидка","difficulty":"Б","points":1,"answer_type":"short","question":"Для одной порции коктейля нужно 0,75 л сока. Сколько литров сока нужно для 4 таких порций?","answer":"3","accepted_answers":["3","3,0","3.0"],"solution":"На 4 порции нужно 0,75 · 4 = 3 литра сока.","recommendation_key":"word_problems"},{"id":"U01","slot":7,"topic":"Единицы измерения","difficulty":"Б","points":1,"answer_type":"short","question":"Выразите 3 м 45 см в сантиметрах.","answer":"345","accepted_answers":["345"],"solution":"3 м = 300 см. Тогда 300 см + 45 см = 345 см.","recommendation_key":"units"},{"id":"U02","slot":7,"topic":"Единицы измерения","difficulty":"Б","points":1,"answer_type":"short","question":"Выразите 2 ч 15 мин в минутах.","answer":"135","accepted_answers":["135"],"solution":"2 часа = 120 минут. 120 + 15 = 135 минут.","recommendation_key":"units"},{"id":"U03","slot":7,"topic":"Единицы измерения","difficulty":"Б","points":1,"answer_type":"short","question":"Выразите 4 кг 80 г в граммах.","answer":"4080","accepted_answers":["4080"],"solution":"4 кг = 4000 г. 4000 г + 80 г = 4080 г.","recommendation_key":"units"},{"id":"U04","slot":7,"topic":"Единицы измерения","difficulty":"Б","points":1,"answer_type":"short","question":"Прямоугольный аквариум имеет размеры 20 см, 15 см и 10 см. Найдите его объём в литрах. 1 л = 1000 см³.","answer":"3","accepted_answers":["3","3,0","3.0"],"solution":"Объём: 20 · 15 · 10 = 3000 см³. Так как 1000 см³ = 1 л, то 3000 см³ = 3 л.","recommendation_key":"units"},{"id":"U05","slot":7,"topic":"Единицы измерения","difficulty":"Б","points":1,"answer_type":"short","question":"Выразите 1,8 км в метрах.","answer":"1800","accepted_answers":["1800"],"solution":"1 км = 1000 м, значит 1,8 км = 1,8 · 1000 = 1800 м.","recommendation_key":"units"},{"id":"G01","slot":8,"topic":"Геометрия на клетчатой бумаге","difficulty":"Б","points":1,"answer_type":"short","question":"На клетчатой бумаге со стороной клетки 1 см изображён прямоугольник 6 клеток на 4 клетки. Найдите его периметр в сантиметрах.","answer":"20","accepted_answers":["20"],"solution":"Стороны прямоугольника равны 6 см и 4 см. Периметр: 2 · (6 + 4) = 20 см.","recommendation_key":"geometry_grid"},{"id":"G02","slot":8,"topic":"Геометрия на клетчатой бумаге","difficulty":"П","points":1,"answer_type":"short","question":"На клетчатой бумаге со стороной клетки 1 см дана фигура с вершинами (0;0), (5;0), (5;4), (3;4), (3;2), (0;2). Найдите периметр фигуры в сантиметрах.","answer":"18","accepted_answers":["18"],"solution":"Длины сторон по порядку: 5, 4, 2, 2, 3, 2. Складываем: 5 + 4 + 2 + 2 + 3 + 2 = 18 см.","recommendation_key":"geometry_grid"},{"id":"G03","slot":8,"topic":"Геометрия на клетчатой бумаге","difficulty":"Б","points":1,"answer_type":"short","question":"На клетчатой бумаге со стороной клетки 1 см изображён квадрат со стороной 7 клеток. Найдите площадь квадрата в квадратных сантиметрах.","answer":"49","accepted_answers":["49"],"solution":"Сторона квадрата 7 см. Площадь квадрата: 7 · 7 = 49 см².","recommendation_key":"geometry_grid"},{"id":"G04","slot":8,"topic":"Геометрия на клетчатой бумаге","difficulty":"П","points":1,"answer_type":"short","question":"На клетчатой бумаге со стороной клетки 1 см дана фигура с вершинами (0;0), (4;0), (4;3), (1;3), (1;5), (0;5). Найдите её периметр в сантиметрах.","answer":"18","accepted_answers":["18"],"solution":"Длины сторон: 4, 3, 3, 2, 1, 5. Периметр равен 4 + 3 + 3 + 2 + 1 + 5 = 18 см.","recommendation_key":"geometry_grid"},{"id":"G05","slot":8,"topic":"Геометрия на клетчатой бумаге","difficulty":"П","points":1,"answer_type":"short","question":"Фигура составлена из прямоугольника 6 на 2 клетки и прямоугольника 2 на 3 клетки, пристроенного сверху к середине первого. Сторона клетки 1 см. Найдите периметр фигуры.","answer":"22","accepted_answers":["22"],"solution":"Периметр прямоугольника 6×2 равен 16 см, периметр прямоугольника 2×3 равен 10 см. Общая сторона длиной 2 см была посчитана дважды, поэтому вычитаем 4 см: 16 + 10 − 4 = 22 см.","recommendation_key":"geometry_grid"},{"id":"C01","slot":9,"topic":"Координаты и числовая прямая","difficulty":"Б","points":1,"answer_type":"short","question":"На координатной прямой точка A имеет координату 2,4, а точка B — координату 5,9. Найдите расстояние между точками A и B.","answer":"3,5","accepted_answers":["3,5","3.5"],"solution":"Расстояние на координатной прямой равно разности большей и меньшей координат: 5,9 − 2,4 = 3,5.","recommendation_key":"coordinates"},{"id":"C02","slot":9,"topic":"Координаты и числовая прямая","difficulty":"Б","points":1,"answer_type":"short","question":"На координатной прямой отрезок от 3 до 4 разделён на 10 равных частей. Точка стоит на седьмом делении после 3. Какова координата точки?","answer":"3,7","accepted_answers":["3,7","3.7"],"solution":"Одно деление равно 0,1. Седьмое деление после 3 имеет координату 3 + 0,7 = 3,7.","recommendation_key":"coordinates"},{"id":"C03","slot":9,"topic":"Координаты и числовая прямая","difficulty":"Б","points":1,"answer_type":"short","question":"Точка M имеет координаты (4;7). Чему равна сумма координат точки M?","answer":"11","accepted_answers":["11"],"solution":"Сумма координат точки M равна 4 + 7 = 11.","recommendation_key":"coordinates"},{"id":"C04","slot":9,"topic":"Координаты и числовая прямая","difficulty":"Б","points":1,"answer_type":"short","question":"На координатной прямой точка C имеет координату 6,25. Точку передвинули влево на 1,4. Какой стала координата точки?","answer":"4,85","accepted_answers":["4,85","4.85"],"solution":"При движении влево координата уменьшается: 6,25 − 1,4 = 6,25 − 1,40 = 4,85.","recommendation_key":"coordinates"},{"id":"C05","slot":9,"topic":"Координаты и числовая прямая","difficulty":"Б","points":1,"answer_type":"short","question":"На координатной сетке отмечены точки A(2;3) и B(2;8). Длина одной клетки равна 1 см. Найдите длину отрезка AB в сантиметрах.","answer":"5","accepted_answers":["5"],"solution":"У точек одинаковая первая координата, значит отрезок вертикальный. Длина равна разности вторых координат: 8 − 3 = 5 см.","recommendation_key":"coordinates"},{"id":"L01","slot":10,"topic":"Логика, делимость и перебор","difficulty":"П","points":1,"answer_type":"short","question":"В записи числа 34x5 вместо x стоит одна цифра. Найдите x, если число делится на 9.","answer":"6","accepted_answers":["6"],"solution":"Число делится на 9, если сумма его цифр делится на 9. Сумма цифр равна 3 + 4 + x + 5 = 12 + x. Подходит 18, значит x = 6.","recommendation_key":"logic_divisibility"},{"id":"L02","slot":10,"topic":"Логика, делимость и перебор","difficulty":"Б","points":1,"answer_type":"short","question":"Сколько чисел из списка 126, 135, 142, 153 делятся на 9?","answer":"3","accepted_answers":["3"],"solution":"Проверим суммы цифр: 126 → 1 + 2 + 6 = 9, 135 → 9, 142 → 7, 153 → 9. На 9 делятся три числа.","recommendation_key":"logic_divisibility"},{"id":"L03","slot":10,"topic":"Логика, делимость и перебор","difficulty":"П","points":1,"answer_type":"short","question":"Сколько трёхзначных чисел можно составить из цифр 1, 2, 3, если цифры в числе не повторяются?","answer":"6","accepted_answers":["6"],"solution":"На место сотен можно поставить 3 цифры, на место десятков — 2 оставшиеся, на место единиц — 1. Всего 3 · 2 · 1 = 6 чисел.","recommendation_key":"logic_divisibility"},{"id":"L04","slot":10,"topic":"Логика, делимость и перебор","difficulty":"П","points":1,"answer_type":"short","question":"Сколько двузначных чисел можно составить из цифр 2, 5, 8, если цифры в числе не повторяются?","answer":"6","accepted_answers":["6"],"solution":"На место десятков можно выбрать 3 цифры, на место единиц — 2 оставшиеся. Всего 3 · 2 = 6 чисел.","recommendation_key":"logic_divisibility"},{"id":"L05","slot":10,"topic":"Логика, делимость и перебор","difficulty":"П","points":1,"answer_type":"short","question":"В очереди перед Антоном стоят 3 человека, а после Антона — в 2 раза больше людей, чем перед ним. Сколько всего человек в очереди?","answer":"10","accepted_answers":["10"],"solution":"После Антона стоят 3 · 2 = 6 человек. Всего: 3 человека перед Антоном, сам Антон и 6 человек после него. 3 + 1 + 6 = 10.","recommendation_key":"logic_divisibility"}];
+// ========== DATA ==========
+const ALL_TASKS = [{"id":"S1_01","slot":1,"kes":"2.3","topic":"Десятичные дроби","difficulty":"Б","type":"short","question":"Вычислите: 21,3 − 2,07","answer":"19,23","accepted_answers":["19,23","19.23"],"solution":"Записываем в столбик: 21,30 − 2,07 = 19,23.","rec":"Выравнивайте запятые при вычитании, дописывая нули."},{"id":"S1_02","slot":1,"kes":"2.3","topic":"Десятичные дроби","difficulty":"Б","type":"short","question":"Вычислите: 2,96 − 1,03","answer":"1,93","accepted_answers":["1,93","1.93"],"solution":"2,96 − 1,03 = 1,93. Вычитаем поразрядно.","rec":"Вычитание десятичных дробей: выравниваем запятые, вычитаем поразрядно."},{"id":"S1_03","slot":1,"kes":"2.3","topic":"Десятичные дроби","difficulty":"Б","type":"short","question":"Вычислите: 5,7 + 12,33","answer":"18,03","accepted_answers":["18,03","18.03"],"solution":"5,70 + 12,33 = 18,03. Выравниваем по запятой.","rec":"При сложении дробей с разным числом знаков дописывайте нули."},{"id":"S1_04","slot":1,"kes":"2.3","topic":"Десятичные дроби","difficulty":"Б","type":"short","question":"Вычислите: 13,3 − 5,04","answer":"8,26","accepted_answers":["8,26","8.26"],"solution":"13,30 − 5,04 = 8,26.","rec":"Выравнивайте запятые и дописывайте нули."},{"id":"S1_05","slot":1,"kes":"2.3","topic":"Десятичные дроби","difficulty":"Б","type":"short","question":"Вычислите: 4,7 − 2,07","answer":"2,63","accepted_answers":["2,63","2.63"],"solution":"4,70 − 2,07 = 2,63.","rec":"Не забывайте дописывать нуль: 4,7 = 4,70."},{"id":"S2_01","slot":2,"kes":"3.1","topic":"Единицы измерения","difficulty":"Б","type":"short","question":"Сколько квадратных сантиметров в 4 м²? Ответ запишите числом.","answer":"40000","accepted_answers":["40000","40 000"],"solution":"1 м² = 10 000 см². Тогда 4 м² = 4 · 10 000 = 40 000 см².","rec":"Запомните: 1 м² = 10 000 см², 1 дм² = 100 см²."},{"id":"S2_02","slot":2,"kes":"3.1","topic":"Единицы измерения","difficulty":"Б","type":"short","question":"Аквариум имеет форму прямоугольного параллелепипеда длиной 150 см, шириной 60 см, высотой 40 см. Найдите объём аквариума в литрах. (1 л = 1000 см³)","answer":"360","accepted_answers":["360"],"solution":"V = 150 · 60 · 40 = 360 000 см³. Переводим: 360 000 : 1000 = 360 л.","rec":"Объём параллелепипеда: V = длина · ширина · высота. 1 л = 1000 см³."},{"id":"S2_03","slot":2,"kes":"3.1","topic":"Единицы измерения","difficulty":"Б","type":"short","question":"Выразите 2 ч 45 мин в минутах.","answer":"165","accepted_answers":["165"],"solution":"2 ч = 120 мин. 120 + 45 = 165 мин.","rec":"1 час = 60 минут. Умножайте часы на 60 и прибавляйте минуты."},{"id":"S2_04","slot":2,"kes":"3.1","topic":"Единицы измерения","difficulty":"Б","type":"short","question":"Сколько квадратных дециметров в 8 м²? Ответ запишите числом.","answer":"800","accepted_answers":["800"],"solution":"1 м² = 100 дм². Тогда 8 м² = 8 · 100 = 800 дм².","rec":"1 м² = 100 дм², 1 дм² = 100 см²."},{"id":"S2_05","slot":2,"kes":"3.1","topic":"Единицы измерения","difficulty":"Б","type":"short","question":"Бассейн имеет форму прямоугольного параллелепипеда длиной 6 м, шириной 4 м и глубиной 1,5 м. Найдите объём бассейна в кубических метрах.","answer":"36","accepted_answers":["36","36,0","36.0"],"solution":"V = 6 · 4 · 1,5 = 36 м³.","rec":"Объём параллелепипеда: V = a · b · h."},{"id":"S3_01","slot":3,"kes":"3.2/2.4","topic":"Прикидка и текстовые задачи","difficulty":"Б","type":"short","question":"Ручка стоит 42 рубля. Какое наибольшее количество ручек можно купить на 500 рублей?","answer":"11","accepted_answers":["11"],"solution":"500 : 42 = 11 (остаток 38). Можно купить 11 ручек. Проверка: 11 · 42 = 462 ≤ 500, 12 · 42 = 504 > 500.","rec":"В задачах «сколько можно купить» делите с остатком и берите целую часть."},{"id":"S3_02","slot":3,"kes":"3.2/2.4","topic":"Прикидка и текстовые задачи","difficulty":"Б","type":"short","question":"Билет в кино стоит 350 рублей. Какое наибольшее количество билетов можно купить на 2000 рублей?","answer":"5","accepted_answers":["5"],"solution":"2000 : 350 = 5 (остаток 250). 5 · 350 = 1750 ≤ 2000, 6 · 350 = 2100 > 2000.","rec":"Делите с остатком и берите целую часть результата."},{"id":"S3_03","slot":3,"kes":"3.2/2.4","topic":"Прикидка и уравнения","difficulty":"Б","type":"short","question":"Каким числом нужно заменить букву А, чтобы получилось верное равенство?\nА : 31 = 26","answer":"806","accepted_answers":["806"],"solution":"А = 26 · 31 = 806.","rec":"Чтобы найти делимое, умножьте частное на делитель."},{"id":"S3_04","slot":3,"kes":"3.2/2.4","topic":"Прикидка и уравнения","difficulty":"Б","type":"short","question":"Каким числом нужно заменить букву В, чтобы получилось верное равенство?\n756 : В = 27","answer":"28","accepted_answers":["28"],"solution":"В = 756 : 27 = 28.","rec":"Чтобы найти делитель, разделите делимое на частное."},{"id":"S3_05","slot":3,"kes":"3.2/2.4","topic":"Прикидка и текстовые задачи","difficulty":"Б","type":"short","question":"Карандаш стоит 28 рублей. Какое наибольшее количество карандашей можно купить на 310 рублей?","answer":"11","accepted_answers":["11"],"solution":"310 : 28 = 11 (остаток 2). 11 · 28 = 308 ≤ 310, 12 · 28 = 336 > 310.","rec":"Берите целую часть от деления без остатка."},{"id":"S4_01","slot":4,"kes":"1.1","topic":"Натуральные числа — порядок действий","difficulty":"Б","type":"short","question":"Вычислите: 305 · 14 + 3690 : 18","answer":"4475","accepted_answers":["4475"],"solution":"305 · 14 = 4270. 3690 : 18 = 205. Тогда 4270 + 205 = 4475.","rec":"Сначала умножение и деление, затем сложение (порядок действий)."},{"id":"S4_02","slot":4,"kes":"1.1","topic":"Натуральные числа — порядок действий","difficulty":"Б","type":"short","question":"Вычислите: 4800 : 24 + 4 · (81 − 63) : 2","answer":"236","accepted_answers":["236"],"solution":"4800:24=200. В скобках: 81−63=18. 4·18:2=36. Итого: 200+36=236.","rec":"Порядок: скобки → умножение/деление → сложение/вычитание."},{"id":"S4_03","slot":4,"kes":"1.1","topic":"Натуральные числа — порядок действий","difficulty":"Б","type":"short","question":"Вычислите: 205 · 12 + 4320 : 10","answer":"2892","accepted_answers":["2892"],"solution":"205·12=2460. 4320:10=432. Тогда 2460+432=2892.","rec":"Умножение и деление выполняются раньше сложения."},{"id":"S4_04","slot":4,"kes":"1.1","topic":"Натуральные числа — порядок действий","difficulty":"Б","type":"short","question":"Вычислите: 107 · 14 + 1620 : 15","answer":"1606","accepted_answers":["1606"],"solution":"107·14=1498. 1620:15=108. Тогда 1498+108=1606.","rec":"Сначала умножение и деление, затем сложение."},{"id":"S4_05","slot":4,"kes":"1.1","topic":"Натуральные числа — порядок действий","difficulty":"Б","type":"short","question":"Вычислите: 405 · 16 + 1272 : 12","answer":"6586","accepted_answers":["6586"],"solution":"405·16=6480. 1272:12=106. Тогда 6480+106=6586.","rec":"Порядок действий: умножение и деление раньше сложения."},{"id":"S5_01","slot":5,"kes":"3.2","topic":"Задача с таблицей — цена за кг","difficulty":"Б","type":"table","question":"В магазине продаётся творог в нескольких упаковках:","table":{"headers":["Наименование","Масса","Цена"],"rows":[["«Любимый»","200 г","150 руб."],["«Утренний»","250 г","175 руб."],["«Рассыпчатый»","500 г","355 руб."],["«Деревенский»","200 г","165 руб."]]},"question_after":"Килограмм какого творога стоит меньше всего? Запишите стоимость одного килограмма этого творога в рублях.","answer":"700","accepted_answers":["700"],"solution":"Цена 1 кг: «Любимый» 150:200·1000=750, «Утренний» 175:250·1000=700, «Рассыпчатый» 355:500·1000=710, «Деревенский» 165:200·1000=825 руб. Дешевле всего «Утренний» — 700 руб./кг.","rec":"Для сравнения цен приводите к одной единице: рублей за 1 кг (умножьте цену на 1000 и разделите на массу в граммах)."},{"id":"S5_02","slot":5,"kes":"3.2","topic":"Производительность — скорость работы","difficulty":"Б","type":"short","question":"Принтер печатает 72 страницы за 3 минуты. За сколько минут этот принтер напечатает 120 страниц?","answer":"5","accepted_answers":["5"],"solution":"Скорость: 72:3=24 стр/мин. Время: 120:24=5 мин.","rec":"Сначала найдите скорость (производительность), затем рассчитайте время."},{"id":"S5_03","slot":5,"kes":"3.2","topic":"Задача с таблицей — цена за литр","difficulty":"Б","type":"table","question":"В кафе продают соки в разных упаковках:","table":{"headers":["Название","Объём","Цена"],"rows":[["«Садовый»","200 мл","54 руб."],["«Фруктовый»","330 мл","89 руб."],["«Натуральный»","500 мл","135 руб."],["«Витаминный»","250 мл","60 руб."]]},"question_after":"Какой сок стоит дешевле всего за 1 литр? Запишите стоимость одного литра в рублях.","answer":"240","accepted_answers":["240"],"solution":"Цена за 1 л: «Садовый» 54:200·1000=270, «Фруктовый» 89:330·1000≈270, «Натуральный» 135:500·1000=270, «Витаминный» 60:250·1000=240. Дешевле «Витаминный» — 240 руб./л.","rec":"Приводите к 1 литру (1000 мл) для сравнения цен."},{"id":"S5_04","slot":5,"kes":"3.2","topic":"Совместная работа","difficulty":"Б","type":"short","question":"Два токаря выточили 220 деталей за 2 часа. Сколько деталей в час вытачивает каждый токарь, если они работают с одинаковой скоростью?","answer":"55","accepted_answers":["55"],"solution":"За 1 час вместе: 220:2=110 деталей. Каждый токарь: 110:2=55 деталей/час.","rec":"Найдите общую производительность за час, затем разделите на число работников."},{"id":"S5_05","slot":5,"kes":"3.2","topic":"Совместная работа","difficulty":"Б","type":"short","question":"Три одинаковых насоса за 4 часа закачали 960 м³ воды. Сколько кубометров воды в час закачивает один насос?","answer":"80","accepted_answers":["80"],"solution":"За 1 час три насоса: 960:4=240 м³. Один насос: 240:3=80 м³.","rec":"Производительность за час = общий объём : время. Затем делите на число насосов."},{"id":"S6_01","slot":6,"kes":"2.2/3.2","topic":"Часть от целого","difficulty":"Б","type":"short","question":"В автобусе 60 мест. Две пятых мест уже заняты. Сколько свободных мест?","answer":"36","accepted_answers":["36"],"solution":"Занято: 60:5·2=24. Свободно: 60−24=36.","rec":"Найдите часть от числа, затем вычтите из целого."},{"id":"S6_02","slot":6,"kes":"2.2/3.2","topic":"Часть от целого","difficulty":"Б","type":"short","question":"В школе 60 пятиклассников. Пятая часть изучает французский язык, четвёртая часть — испанский. Остальные изучают английский. Сколько пятиклассников изучает английский язык?","answer":"33","accepted_answers":["33"],"solution":"Французский: 60:5=12. Испанский: 60:4=15. Английский: 60−12−15=33.","rec":"Найдите количество в каждой группе, затем вычтите из общего."},{"id":"S6_03","slot":6,"kes":"2.2/3.2","topic":"Целое по части","difficulty":"Б","type":"short","question":"За первый час велосипедист проехал 1/4 всего пути, за второй — 1/3 пути. После остановки ему осталось 20 км. Сколько километров составляет весь путь?","answer":"48","accepted_answers":["48"],"solution":"Проехал: 1/4+1/3=3/12+4/12=7/12. Осталось: 1−7/12=5/12 пути. 5/12 пути=20 км, весь путь: 20·12/5=48 км.","rec":"Найдите оставшуюся долю пути, затем из неё выразите целое."},{"id":"S6_04","slot":6,"kes":"2.2/3.2","topic":"Часть от целого","difficulty":"Б","type":"short","question":"В классе 32 ученика. Четверть класса занимается в секции плавания, три восьмых — в танцевальном кружке. Сколько учеников не занимаются дополнительно?","answer":"12","accepted_answers":["12"],"solution":"Плавание: 32:4=8. Танцы: 32·3/8=12. Не занимаются: 32−8−12=12.","rec":"Находите каждую группу по доле, затем вычитайте из общего числа."},{"id":"S6_05","slot":6,"kes":"2.2/3.2","topic":"Целое по части","difficulty":"Б","type":"short","question":"Турист прошёл 2/5 маршрута за первый день и 1/3 маршрута за второй. Ему осталось пройти 12 км. Найдите длину всего маршрута в километрах.","answer":"45","accepted_answers":["45"],"solution":"Прошёл: 2/5+1/3=6/15+5/15=11/15. Осталось: 4/15 маршрута=12 км. Весь маршрут: 12·15/4=45 км.","rec":"Найдите оставшуюся долю, затем вычислите целое."},{"id":"S7_01","slot":7,"kes":"2.1*","topic":"Обыкновенные дроби — вычисление","difficulty":"Б","type":"short","question":"Вычислите: 2/7 + 3/7","answer":"5/7","accepted_answers":["5/7"],"solution":"Знаменатели одинаковые: 2/7+3/7=5/7.","rec":"При сложении дробей с одинаковыми знаменателями складывают числители."},{"id":"S7_02","slot":7,"kes":"2.1*","topic":"Обыкновенные дроби — сравнение","difficulty":"Б","type":"short","question":"В каком диапазоне находится дробь 15/19?\n1) меньше 0,5\n2) от 0,5 до 1\n3) больше 1, но меньше 2\n4) больше 2\n\nНапишите только номер варианта.","answer":"2","accepted_answers":["2"],"solution":"15/19≈0,79. Числитель меньше знаменателя → дробь меньше 1. 15/19 > 1/2 (т.к. 15 > 19/2=9,5). Ответ: вариант 2.","rec":"Сравнивайте числитель и знаменатель. Если числитель меньше — дробь меньше 1."},{"id":"S7_03","slot":7,"kes":"2.1*","topic":"Обыкновенные дроби — сравнение","difficulty":"Б","type":"short","question":"В каком диапазоне находится дробь 20/9?\n1) меньше 0,5\n2) от 0,5 до 1\n3) больше 1, но меньше 2\n4) больше 2\n\nНапишите только номер варианта.","answer":"4","accepted_answers":["4"],"solution":"20/9≈2,22. Числитель 20 > 2·9=18, значит 20/9 > 2. Ответ: вариант 4.","rec":"Если числитель > 2·знаменатель, дробь больше 2."},{"id":"S7_04","slot":7,"kes":"2.1*","topic":"Обыкновенные дроби — вычисление","difficulty":"Б","type":"short","question":"Вычислите и запишите в виде обыкновенной дроби: 5/8 + 1/4","answer":"7/8","accepted_answers":["7/8"],"solution":"Приводим к знаменателю 8: 1/4=2/8. Тогда 5/8+2/8=7/8.","rec":"При сложении дробей с разными знаменателями сначала приводите к общему знаменателю."},{"id":"S7_05","slot":7,"kes":"2.1*","topic":"Обыкновенные дроби — сравнение","difficulty":"Б","type":"short","question":"В каком диапазоне находится дробь 11/8?\n1) меньше 0,5\n2) от 0,5 до 1\n3) больше 1, но меньше 2\n4) больше 2\n\nНапишите только номер варианта.","answer":"3","accepted_answers":["3"],"solution":"11/8=1,375. Числитель 11 > знаменателя 8 → дробь больше 1. 11 < 2·8=16 → дробь меньше 2. Ответ: вариант 3.","rec":"Если числитель > знаменатель, дробь больше 1. Сравните с 2·знаменатель."},{"id":"S8_01","slot":8,"kes":"3.2","topic":"Движение — встречное","difficulty":"Б","type":"short","question":"Расстояние между городами 360 км. Из них навстречу друг другу выехали два автомобиля. Через 2 ч 40 мин они встретились. Найдите скорость первого автомобиля, если скорость второго 70 км/ч. Ответ дайте в км/ч.","answer":"65","accepted_answers":["65"],"solution":"2 ч 40 мин = 8/3 ч. Суммарная скорость: 360:(8/3)=360·3/8=135 км/ч. Скорость первого: 135−70=65 км/ч.","rec":"Скорость сближения = расстояние:время. Скорость первого = скорость сближения − скорость второго."},{"id":"S8_02","slot":8,"kes":"3.2","topic":"Прогрессия — задача туристов","difficulty":"Б","type":"short","question":"Туристы за 4 дня прошли путь от города А до города Б. Каждый день они проходили на 4 км меньше, чем в предыдущий. Найдите расстояние, если в третий день туристы прошли 22 км. Ответ дайте в километрах.","answer":"96","accepted_answers":["96"],"solution":"3-й день: 22 км. 2-й: 22+4=26 км. 1-й: 26+4=30 км. 4-й: 22−4=18 км. Сумма: 30+26+22+18=96 км.","rec":"Восстановите все дни: каждый предыдущий день на 4 км больше, каждый следующий — на 4 км меньше."},{"id":"S8_03","slot":8,"kes":"3.2","topic":"Прогрессия — задача туристов","difficulty":"Б","type":"short","question":"Туристы за 4 дня прошли путь от города А до города Б. Каждый день они проходили на 3 км меньше, чем в предыдущий. Найдите расстояние, если во второй день туристы прошли 20 км. Ответ дайте в километрах.","answer":"74","accepted_answers":["74"],"solution":"2-й день: 20 км. 1-й: 23 км. 3-й: 17 км. 4-й: 14 км. Сумма: 23+20+17+14=74 км.","rec":"Восстановите ряд: каждый предыдущий день на 3 км больше известного."},{"id":"S8_04","slot":8,"kes":"3.2","topic":"Движение — встречное","difficulty":"Б","type":"short","question":"Из двух городов, расстояние между которыми 280 км, одновременно навстречу друг другу выехали два поезда: первый со скоростью 80 км/ч, второй — 60 км/ч. Через сколько часов они встретятся?","answer":"2","accepted_answers":["2","2,0","2.0"],"solution":"Скорость сближения: 80+60=140 км/ч. Время: 280:140=2 ч.","rec":"При встречном движении скорости складываются."},{"id":"S8_05","slot":8,"kes":"3.2","topic":"Движение — несколько вариантов","difficulty":"П","type":"short","question":"Из пунктов А и Б (расстояние 300 км) одновременно выехали навстречу друг другу автомобиль (80 км/ч) и автобус (50 км/ч). Какое расстояние будет между ними через 1 час? Ответ дайте в километрах.","answer":"170","accepted_answers":["170"],"solution":"За 1 час автомобиль проехал 80 км, автобус — 50 км. Вместе: 130 км. Расстояние между ними: 300−130=170 км.","rec":"При встречном движении расстояние уменьшается на сумму скоростей за каждый час."},{"id":"S9_01","slot":9,"kes":"4.2/3.3","topic":"Геометрия — квадрат и прямоугольник","difficulty":"П","type":"short","question":"Квадрат разрезали на два равных прямоугольника. Найдите площадь квадрата, если периметр каждого прямоугольника равен 48 см. Ответ дайте в квадратных сантиметрах.","answer":"256","accepted_answers":["256"],"solution":"Пусть сторона квадрата a. Прямоугольник имеет стороны a и a/2. Периметр: 2(a+a/2)=3a=48, a=16 см. Площадь: 16²=256 см².","rec":"Запишите стороны прямоугольника через сторону квадрата, составьте уравнение из периметра."},{"id":"S9_02","slot":9,"kes":"4.2/3.3","topic":"Геометрия — прямоугольник","difficulty":"П","type":"short","question":"Одна сторона прямоугольника равна 7 см, его периметр равен 34 см. Найдите площадь этого прямоугольника. Ответ дайте в квадратных сантиметрах.","answer":"70","accepted_answers":["70"],"solution":"Полупериметр: 34:2=17 см. Вторая сторона: 17−7=10 см. Площадь: 7·10=70 см².","rec":"Полупериметр = сумма двух сторон. Зная одну сторону, найдите другую."},{"id":"S9_03","slot":9,"kes":"4.2/3.3","topic":"Геометрия — площадь фигуры","difficulty":"П","type":"short","question":"Бумага расчерчена на клетки со стороной 1 см. Фигура состоит из прямоугольника 8×3 клетки, из которого вырезан прямоугольник 2×2 клетки из правого верхнего угла. Найдите площадь фигуры в квадратных сантиметрах.","answer":"20","accepted_answers":["20"],"solution":"Площадь 8×3=24 см². Вырезанная часть: 2×2=4 см². Площадь фигуры: 24−4=20 см².","rec":"Площадь сложной фигуры = площадь прямоугольника − площадь вырезанной части."},{"id":"S9_04","slot":9,"kes":"4.2/3.3","topic":"Геометрия — периметр","difficulty":"П","type":"short","question":"Прямоугольник со сторонами 10 см и 5 см разрезали на два равных квадрата. Чему равен периметр каждого квадрата? Ответ дайте в сантиметрах.","answer":"20","accepted_answers":["20"],"solution":"Разрезаем 10×5 пополам вдоль длинной стороны: два квадрата 5×5. Периметр: 4·5=20 см.","rec":"Квадрат получится, если разрезать прямоугольник вдоль длинной стороны пополам."},{"id":"S9_05","slot":9,"kes":"4.2/3.3","topic":"Геометрия — составная фигура","difficulty":"П","type":"short","question":"К прямоугольнику 6×4 см пристроили квадрат со стороной 4 см вдоль стороны 4 см. Найдите периметр получившейся фигуры в сантиметрах.","answer":"28","accepted_answers":["28"],"solution":"Получили прямоугольник (6+4)×4=10×4 см. Периметр: 2·(10+4)=28 см.","rec":"При пристраивании фигур найдите итоговые размеры и посчитайте периметр."},{"id":"S10_01","slot":10,"kes":"3.3","topic":"Логика — квартиры в доме","difficulty":"П","type":"short","question":"В 12-этажном доме несколько подъездов. На каждом этаже в каждом подъезде одинаковое количество квартир. Квартира 203 находится в 4-м подъезде на 5-м этаже. На каком этаже находится квартира 153?","answer":"7","accepted_answers":["7"],"solution":"Квартир на этаже в подъезде: n=5 (проверка: в 3 подъездах 3·12·5=180 квартир, в 4-м подъезде на 4-х этажах ещё 20, на 5-м этаже последняя = 180+20+3=203 ✓). Квартира 153: 153−2·60=33; в 3-м подъезде этаж: ⌈33/5⌉=7. Ответ: 7-й этаж.","rec":"Найдите число квартир на одном этаже, затем вычислите номер подъезда и этажа."},{"id":"S10_02","slot":10,"kes":"3.3","topic":"Логика — перебор","difficulty":"П","type":"short","question":"В двух коробках 36 карандашей. В первой коробке карандашей в 3 раза меньше, чем во второй. Сколько карандашей во второй коробке?","answer":"27","accepted_answers":["27"],"solution":"Пусть в первой x, во второй 3x. x+3x=36, 4x=36, x=9. Во второй: 3·9=27.","rec":"Обозначьте меньшую часть за x, большую — кратное x, составьте и решите уравнение."},{"id":"S10_03","slot":10,"kes":"3.3","topic":"Делимость на 9","difficulty":"П","type":"short","question":"Четырёхзначное число 25А6 делится на 9. Какая цифра стоит вместо буквы А?","answer":"5","accepted_answers":["5"],"solution":"Сумма цифр: 2+5+А+6=13+А. Должна делиться на 9: 13+А=18, А=5. Проверка: 2556:9=284 ✓","rec":"Признак делимости на 9: сумма всех цифр числа делится на 9."},{"id":"S10_04","slot":10,"kes":"3.3","topic":"Перебор — составление чисел","difficulty":"П","type":"short","question":"Сколько трёхзначных чисел можно составить из цифр 2, 4, 7, если каждая цифра используется не более одного раза?","answer":"6","accepted_answers":["6"],"solution":"На место сотен — 3 варианта, на место десятков — 2, на место единиц — 1. Всего: 3·2·1=6 чисел (247, 274, 427, 472, 724, 742).","rec":"Число перестановок из n элементов: n! = n·(n−1)·...·1."},{"id":"S10_05","slot":10,"kes":"3.3","topic":"Перебор — расстановка","difficulty":"П","type":"short","question":"На полке стоят 3 книги: красная, синяя и зелёная. Сколькими способами можно расставить их на полке?","answer":"6","accepted_answers":["6"],"solution":"1-е место — 3 варианта, 2-е — 2, 3-е — 1. Всего: 3·2·1=6 способов.","rec":"Число способов расставить n различных предметов: n!"}];
 
-const RECOMMENDATIONS = {
-  decimal_fractions: "Повторить сложение, вычитание, умножение и деление десятичных дробей; потренироваться выравнивать запятые.",
-  natural_calculations: "Повторить порядок действий, скобки, умножение и деление многозначных чисел.",
-  common_fractions: "Повторить сложение и вычитание дробей с одинаковыми знаменателями, сокращение дробей и сравнение дробей.",
-  part_whole: "Повторить нахождение части от числа и восстановление целого по известной части.",
-  movement: "Повторить формулы S = v · t, v = S : t, задачи на встречное движение и движение в одном направлении.",
-  word_problems: "Тренировать перевод условия в действия: цена, количество, стоимость; было, раздали, осталось.",
-  estimation_rounding: "Повторить округление десятичных дробей до нужного разряда и прикидку результата.",
-  units: "Повторить перевод единиц длины, массы, времени, объёма и связь 1 л = 1000 см³.",
-  geometry_grid: "Повторить периметр и площадь фигур на клетчатой бумаге; считать стороны по клеткам и не терять внутренние вырезы.",
-  coordinates: "Повторить координатную прямую, десятые деления, расстояние между точками и простые координаты на сетке.",
-  logic_divisibility: "Повторить признаки делимости, организованный перебор и простые логические задачи."
+const KES_NAMES = {
+  1: {kes:"2.3", name:"Десятичные дроби", icon:"🔢"},
+  2: {kes:"3.1", name:"Единицы измерения", icon:"📏"},
+  3: {kes:"3.2/2.4", name:"Прикидка и уравнения", icon:"💡"},
+  4: {kes:"1.1", name:"Натуральные числа", icon:"✖️"},
+  5: {kes:"3.2", name:"Задачи с таблицами", icon:"📊"},
+  6: {kes:"2.2/3.2", name:"Часть от целого", icon:"🍕"},
+  7: {kes:"2.1*", name:"Обыкновенные дроби", icon:"½"},
+  8: {kes:"3.2", name:"Движение и прогрессия", icon:"🚗"},
+  9: {kes:"4.2/3.3", name:"Геометрия", icon:"📐"},
+  10: {kes:"3.3", name:"Логика и перебор", icon:"🧩"}
 };
 
-// ==================== STATE ====================
-let variant = [];       // 10 tasks for this session
-let current = 0;        // current task index
-let answers = [];       // {value, isCorrect, checked}
-let score = 0;
-let timerInterval = null;
-let secondsLeft = 2700;
-let startTime = null;
-let finished = false;
+// ========== STATE ==========
+let variant = [], answers = [], current = 0, score = 0;
+let timerSecs = 2700, timerID = null, startTime = null, isFinished = false;
 
-// ==================== UTILS ====================
-function normalize(s) {
-  return String(s).trim().replace(/[\s\u00A0]/g, '').replace('.', ',');
-}
-
-function isCorrect(userInput, task) {
-  const u = normalize(userInput);
-  return task.accepted_answers.some(a => normalize(a) === u);
-}
-
-function shuffle(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
+// ========== INIT ==========
+function init() {
+  const list = document.getElementById('kes-list');
+  for (let s=1; s<=10; s++) {
+    const k = KES_NAMES[s];
+    list.innerHTML += `<div class="kes-item">
+      <div class="kes-num">${s}</div>
+      <div><div>${k.icon} ${k.name}</div><div class="kes-topic">КЭС ${k.kes}</div></div>
+    </div>`;
   }
-  return a;
+}
+
+function shuffle(a) {
+  const b=[...a];
+  for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}
+  return b;
 }
 
 function buildVariant() {
-  // group by slot
-  const slots = {};
-  ALL_TASKS.forEach(t => {
-    if (!slots[t.slot]) slots[t.slot] = [];
-    slots[t.slot].push(t);
-  });
-  const result = [];
-  for (let s = 1; s <= 10; s++) {
-    if (slots[s] && slots[s].length > 0) {
-      const pool = shuffle(slots[s]);
-      result.push(pool[0]);
-    }
-  }
-  return shuffle(result);
+  const slots={};
+  ALL_TASKS.forEach(t=>{if(!slots[t.slot])slots[t.slot]=[];slots[t.slot].push(t);});
+  const res=[];
+  for(let s=1;s<=10;s++) if(slots[s]?.length) res.push(shuffle(slots[s])[0]);
+  return res;
 }
 
-function formatTime(secs) {
-  const m = Math.floor(secs / 60).toString().padStart(2, '0');
-  const s = (secs % 60).toString().padStart(2, '0');
-  return `${m}:${s}`;
-}
-
-// ==================== TIMER ====================
-function startTimer() {
-  timerInterval = setInterval(() => {
-    secondsLeft--;
-    const el = document.getElementById('timer-display');
-    el.textContent = formatTime(secondsLeft);
-    if (secondsLeft <= 300) el.className = 'timer warning';
-    if (secondsLeft <= 60) el.className = 'timer danger';
-    if (secondsLeft <= 0) {
-      clearInterval(timerInterval);
-      finishTest(true);
-    }
-  }, 1000);
-}
-
-// ==================== SCREENS ====================
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-// ==================== START ====================
+// ========== START ==========
 function startTest() {
   variant = buildVariant();
-  answers = variant.map(() => ({ value: '', isCorrect: false, checked: false }));
-  current = 0;
-  score = 0;
-  secondsLeft = 2700;
-  finished = false;
-  startTime = Date.now();
-
+  answers = variant.map(()=>({val:'',correct:false,checked:false}));
+  current=0; score=0; timerSecs=2700; isFinished=false; startTime=Date.now();
   buildDots();
   renderTask(0);
   showScreen('screen-test');
-  startTimer();
+  clearInterval(timerID);
+  timerID = setInterval(tick,1000);
 }
 
-// ==================== DOTS ====================
+// ========== TIMER ==========
+function tick() {
+  timerSecs--;
+  const el=document.getElementById('timer-display');
+  el.textContent=fmt(timerSecs);
+  el.className='timer'+(timerSecs<=300?' warn':'')+(timerSecs<=60?' danger':'');
+  if(timerSecs<=0){clearInterval(timerID);finish(true);}
+}
+function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+
+// ========== DOTS ==========
 function buildDots() {
-  const container = document.getElementById('dots-container');
-  container.innerHTML = '';
-  variant.forEach((_, i) => {
-    const d = document.createElement('div');
-    d.className = 'dot' + (i === 0 ? ' active' : '');
-    d.textContent = i + 1;
-    d.onclick = () => goToTask(i);
-    container.appendChild(d);
+  const c=document.getElementById('dots');
+  c.innerHTML='';
+  variant.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='dot'+(i===0?' active':'');
+    d.textContent=i+1; d.onclick=()=>jumpTo(i);
+    c.appendChild(d);
   });
 }
-
 function updateDots() {
-  const dots = document.querySelectorAll('.dot');
-  dots.forEach((d, i) => {
-    d.className = 'dot';
-    if (answers[i].checked) {
-      d.classList.add(answers[i].isCorrect ? 'correct' : 'wrong');
-    } else if (answers[i].value) {
-      d.classList.add('answered');
-    }
-    if (i === current) d.classList.add('active');
+  document.querySelectorAll('.dot').forEach((d,i)=>{
+    d.className='dot';
+    if(answers[i].checked) d.classList.add(answers[i].correct?'correct':'wrong');
+    else if(answers[i].val) d.classList.add('answered');
+    if(i===current) d.classList.add('active');
   });
 }
 
-// ==================== RENDER TASK ====================
+// ========== RENDER ==========
 function renderTask(idx) {
-  current = idx;
-  const task = variant[idx];
-  const ans = answers[idx];
-
+  current=idx;
+  const t=variant[idx], a=answers[idx];
   // meta
-  const meta = document.getElementById('task-meta');
-  meta.innerHTML = `
-    <span class="badge badge-slot">Вопрос ${idx + 1} из ${variant.length}</span>
-    <span class="badge badge-topic">${task.topic}</span>
-    <span class="badge badge-diff-${task.difficulty}">${task.difficulty === 'Б' ? 'Базовый' : 'Повышенный'}</span>
-  `;
+  document.getElementById('task-meta').innerHTML=
+    `<span class="badge badge-num">Задание ${idx+1}</span>
+     <span class="badge badge-topic">${t.topic}</span>
+     <span class="badge ${t.difficulty==='Б'?'badge-b':'badge-p'}">${t.difficulty==='Б'?'Базовый':'Повышенный'}</span>
+     <span class="badge badge-kes">КЭС ${t.kes}</span>`;
 
-  // question
-  document.getElementById('question-text').textContent = task.question;
-
-  // input
-  const input = document.getElementById('answer-input');
-  input.value = ans.value;
-  input.className = 'answer-input';
-  input.disabled = ans.checked;
-  if (ans.checked) {
-    input.classList.add(ans.isCorrect ? 'correct' : 'wrong');
+  // question content
+  const qc=document.getElementById('question-content');
+  if(t.type==='table') {
+    let html=`<div class="question-text">${escHtml(t.question)}</div>`;
+    html+=`<table class="q-table"><thead><tr>${t.table.headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>`;
+    t.table.rows.forEach(r=>{html+=`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`;});
+    html+=`</tbody></table><div class="question-text">${escHtml(t.question_after||'')}</div>`;
+    qc.innerHTML=html;
+  } else {
+    qc.innerHTML=`<div class="question-text">${escHtml(t.question)}</div>`;
   }
 
-  // check button
-  const btn = document.getElementById('check-btn');
-  btn.disabled = ans.checked;
-  btn.textContent = ans.checked ? 'Проверено' : 'Проверить';
+  // input
+  const inp=document.getElementById('answer-input');
+  inp.value=a.val; inp.disabled=a.checked;
+  inp.className='answer-input'+(a.checked?(a.correct?' correct':' wrong'):'');
+
+  // btn
+  const btn=document.getElementById('check-btn');
+  btn.disabled=a.checked; btn.textContent=a.checked?'Проверено':'Проверить';
 
   // feedback
-  const fb = document.getElementById('feedback');
-  if (ans.checked) {
-    if (ans.isCorrect) {
-      fb.className = 'feedback show correct';
-      fb.innerHTML = `<strong>✓ Правильно!</strong><div class="solution">Решение: ${task.solution}</div>`;
-    } else {
-      fb.className = 'feedback show wrong';
-      fb.innerHTML = `<strong>✗ Неверно. Правильный ответ: ${task.answer}</strong>
-        <div class="solution">Решение: ${task.solution}</div>
-        <div class="reco">💡 ${RECOMMENDATIONS[task.recommendation_key] || ''}</div>`;
-    }
+  const fb=document.getElementById('feedback');
+  if(a.checked) {
+    fb.className='feedback show '+(a.correct?'correct':'wrong');
+    fb.innerHTML=a.correct
+      ? `<div class="feedback-title">✓ Правильно!</div><div class="feedback-solution">${t.solution}</div>`
+      : `<div class="feedback-title">✗ Неверно. Правильный ответ: ${t.answer}</div>
+         <div class="feedback-solution">${t.solution}</div>
+         <div class="feedback-rec">💡 ${t.rec||''}</div>`;
   } else {
-    fb.className = 'feedback';
-    fb.innerHTML = '';
+    fb.className='feedback'; fb.innerHTML='';
   }
 
   // progress
-  const done = answers.filter(a => a.checked).length;
-  document.getElementById('progress-text').textContent = `Задание ${idx + 1} из ${variant.length}`;
-  document.getElementById('score-text').textContent = `${score} баллов`;
-  document.getElementById('progress-fill').style.width = `${((idx + 1) / variant.length) * 100}%`;
-
-  // nav buttons
-  document.getElementById('prev-btn').disabled = idx === 0;
-  document.getElementById('next-btn').disabled = idx === variant.length - 1;
-
+  document.getElementById('progress-text').textContent=`Вопрос ${idx+1} из ${variant.length}`;
+  document.getElementById('score-text').textContent=`${score} / ${variant.length}`;
+  document.getElementById('progress-fill').style.width=`${((idx+1)/variant.length)*100}%`;
+  document.getElementById('btn-prev').disabled=idx===0;
+  document.getElementById('btn-next').disabled=idx===variant.length-1;
   updateDots();
-
-  if (!ans.checked) setTimeout(() => input.focus(), 50);
+  if(!a.checked) setTimeout(()=>inp.focus(),50);
 }
 
-// ==================== CHECK ====================
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ========== CHECK ==========
+function norm(s){return String(s).trim().replace(/[\s\u00A0]/g,'').replace('.',',');}
 function checkAnswer() {
-  const ans = answers[current];
-  if (ans.checked) return;
-  const input = document.getElementById('answer-input');
-  const val = input.value.trim();
-  if (!val) { input.focus(); return; }
-
-  ans.value = val;
-  ans.isCorrect = isCorrect(val, variant[current]);
-  ans.checked = true;
-  if (ans.isCorrect) score++;
-
+  const a=answers[current];
+  if(a.checked) return;
+  const inp=document.getElementById('answer-input');
+  const val=inp.value.trim(); if(!val){inp.focus();return;}
+  a.val=val;
+  a.correct=variant[current].accepted_answers.some(x=>norm(x)===norm(val));
+  a.checked=true;
+  if(a.correct) score++;
   renderTask(current);
 }
 
-// ==================== NAVIGATE ====================
-function goTask(dir) {
-  // save current input value before navigating away (if not checked)
-  if (!answers[current].checked) {
-    answers[current].value = document.getElementById('answer-input').value;
-  }
-  goToTask(current + dir);
+// ========== NAV ==========
+function saveInput(){if(!answers[current].checked) answers[current].val=document.getElementById('answer-input').value;}
+function navTo(dir){saveInput();jumpTo(current+dir);}
+function jumpTo(idx){if(idx<0||idx>=variant.length)return;saveInput();renderTask(idx);}
+
+// ========== FINISH ==========
+function confirmFinish(){
+  const unchecked=answers.filter(a=>!a.checked).length;
+  if(unchecked>0&&!confirm(`Вы проверили ${variant.length-unchecked} из ${variant.length} заданий. Завершить тест?`)) return;
+  finish(false);
 }
+function finish(timeout) {
+  if(isFinished) return; isFinished=true;
+  clearInterval(timerID);
+  const elapsed=Math.round((Date.now()-startTime)/1000);
+  const mm=Math.floor(elapsed/60), ss=elapsed%60;
+  const timeStr=timeout?'Время вышло':`${mm} мин ${ss} сек`;
 
-function goToTask(idx) {
-  if (idx < 0 || idx >= variant.length) return;
-  if (!answers[current].checked) {
-    answers[current].value = document.getElementById('answer-input').value;
-  }
-  renderTask(idx);
-}
+  document.getElementById('res-score').textContent=score;
+  const pct=score/variant.length*100;
+  const bar=document.getElementById('score-bar');
+  bar.style.background=pct>=90?'#16a34a':pct>=70?'#2563eb':pct>=50?'#d97706':'#dc2626';
+  setTimeout(()=>bar.style.width=pct+'%',100);
 
-// ==================== FINISH ====================
-function confirmFinish() {
-  const unchecked = answers.filter(a => !a.checked).length;
-  if (unchecked > 0) {
-    if (!confirm(`Вы проверили ${variant.length - unchecked} из ${variant.length} заданий. Завершить тест?`)) return;
-  }
-  finishTest(false);
-}
-
-function finishTest(timeout) {
-  if (finished) return;
-  finished = true;
-  clearInterval(timerInterval);
-
-  // calculate elapsed
-  const elapsed = Math.round((Date.now() - startTime) / 1000);
-  const mm = Math.floor(elapsed / 60);
-  const ss = elapsed % 60;
-  const timeStr = timeout ? 'Время вышло' : `${mm} мин ${ss} сек`;
-
-  // score label
-  let labelText, labelClass;
-  if (score >= 9) { labelText = 'Отличный результат!'; labelClass = 'excellent'; }
-  else if (score >= 7) { labelText = 'Хороший результат'; labelClass = 'good'; }
-  else if (score >= 5) { labelText = 'Есть над чем поработать'; labelClass = 'average'; }
-  else { labelText = 'Нужно повторить темы'; labelClass = 'poor'; }
-
-  document.getElementById('result-score').textContent = score;
-  const lbl = document.getElementById('result-label');
-  lbl.textContent = labelText;
-  lbl.className = 'result-label ' + labelClass;
-  document.getElementById('result-time').textContent = `Затраченное время: ${timeStr}`;
+  let label,cls;
+  if(score>=9){label='Отличный результат! Готов к МЦКО';cls='grade-excellent';}
+  else if(score>=7){label='Хороший результат';cls='grade-good';}
+  else if(score>=5){label='Есть над чем поработать';cls='grade-average';}
+  else{label='Нужно повторить темы';cls='grade-poor';}
+  const lbl=document.getElementById('res-label');
+  lbl.textContent=label; lbl.className='result-label '+cls;
+  document.getElementById('res-time').textContent='Время: '+timeStr;
 
   // breakdown
-  const bd = document.getElementById('result-breakdown');
-  bd.innerHTML = '';
-  variant.forEach((task, i) => {
-    const ans = answers[i];
-    const div = document.createElement('div');
-    div.className = 'breakdown-item ' + (ans.isCorrect ? 'correct' : 'wrong');
-    const icon = ans.isCorrect ? '✓' : '✗';
-    const userAnswerText = ans.value ? `Ваш ответ: <b>${ans.value}</b>` : 'Ответ не введён';
-    div.innerHTML = `
-      <div class="bi-question"><span class="bi-icon">${icon}</span>Задание ${i + 1} — ${task.topic}</div>
-      <div class="bi-meta">${task.question.length > 80 ? task.question.slice(0, 80) + '…' : task.question}</div>
-      <div class="bi-answer">${userAnswerText} &nbsp;|&nbsp; Правильно: <b>${task.answer}</b></div>
-      <div class="bi-solution">${task.solution}</div>
-    `;
+  const bd=document.getElementById('breakdown');
+  bd.innerHTML='';
+  variant.forEach((t,i)=>{
+    const a=answers[i];
+    const div=document.createElement('div');
+    div.className='breakdown-item '+(a.correct?'correct':'wrong');
+    const shortQ=t.type==='table'?(t.question+' [таблица] '+t.question_after):t.question;
+    div.innerHTML=`
+      <div class="bi-head"><span class="bi-icon">${a.correct?'✓':'✗'}</span>Задание ${i+1} — ${t.topic}</div>
+      <div class="bi-q">${shortQ.length>100?shortQ.slice(0,100)+'…':shortQ}</div>
+      <div class="bi-answers">
+        Ваш ответ: <b>${a.val||'—'}</b> &nbsp;|&nbsp; Правильно: <b>${t.answer}</b>
+      </div>
+      <div class="bi-solution">${t.solution}</div>`;
     bd.appendChild(div);
   });
 
   showScreen('screen-result');
 }
 
-function restartTest() {
-  showScreen('screen-start');
-}
+function restartTest(){showScreen('screen-start');}
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+
+init();
 </script>
 <script data-pplx-inline-edit>
 (function(){
